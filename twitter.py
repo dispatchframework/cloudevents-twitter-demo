@@ -9,8 +9,7 @@ from PIL import Image
 
 
 watermark = None
-watermark_url = "https://github.com/vmware/dispatch/raw/master/docs/assets/images/logo-small-200.png"  # noqa
-
+watermark_url = "https://github.com/dispatchframework/cloudevents-twitter-demo/raw/master/logo-small-watermark.png"  # noqa
 
 def get_image(url):
     r = requests.get(url)
@@ -19,7 +18,10 @@ def get_image(url):
 
 
 def get_watermark_image():
-    return get_image(watermark_url)
+
+    img = get_image(watermark_url)
+    img.thumbnail((256, 256))
+    return img
 
 
 def handle(ctx, payload):
@@ -67,8 +69,8 @@ def handle2(ctx, payload):
         watermark = get_watermark_image()
 
     # Watermark and thumbnail the image
-    img.paste(watermark, (10, 10), watermark)
-    img.thumbnail((1024, 512), Image.ANTIALIAS)
+    img.thumbnail((1024, 512), Image.BICUBIC)
+    img.paste(watermark, (0, 0), watermark)
 
     # Save into a byte stream to send to twitter
     final_image = io.BytesIO()
@@ -81,3 +83,12 @@ def handle2(ctx, payload):
     twitter.update_status(status='Upload from VMware Dispatch',
                           media_ids=[response['media_id']])
     return {"status": 200}
+
+if __name__ == "__main__":
+    with open("secrets.json") as fh:
+        secrets = json.load(fh)
+    with open("CloudEvents.postman_collection.json") as fh:
+        events = json.load(fh)
+    raw = events["item"][0]["request"]["body"]["raw"]
+    event = json.loads(raw)
+    handle2({"secrets": secrets}, event)
