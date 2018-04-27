@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "7fd53c1a-ff68-457f-98c5-a06ee5112012",
+		"name": "CloudEvents",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CloudEvents AWS S3",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"eventType\": \"aws.s3.object.created\",\n  \"eventID\": \"C234-1234-1234\",\n  \"eventTime\": \"2018-04-26T14:48:09.769Z\",\n  \"eventTypeVersion\": \"2.0\",\n  \"source\": \"https://serverless.com\",\n  \"extensions\": {},\n  \"contentType\": \"application/json\",\n  \"cloudEventsVersion\": \"0.1\",\n  \"data\":\n   { \"s3SchemaVersion\": \"1.0\",\n     \"configurationId\": \"cd267a38-30df-400e-9e3d-d0f1ca6e2410\",\n     \"bucket\":\n      { \"name\": \"cloudevents\",\n        \"ownerIdentity\": {},\n        \"arn\": \"arn:aws:s3:::cloudevents\" },\n     \"object\":\n      { \"key\": \"dan_kohn.jpg\",\n        \"size\": 444684,\n        \"eTag\": \"38b01ff16138d7ca0a0eb3f7a88ff815\",\n        \"sequencer\": \"005AE1E6A9A3D61490\"\n      }\n    }\n}"
+				},
+				"url": {
+					"raw": "https://cloudeventsdemo.dispatchframework.io/twitter",
+					"protocol": "https",
+					"host": [
+						"cloudeventsdemo",
+						"dispatchframework",
+						"io"
+					],
+					"path": [
+						"twitter"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cloud Events Azure blob",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/cloudevents+json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"eventID\": \"96fb5f0b-001e-0108-6dfe-da6e2806f124\",\n   \"eventTime\": \"2018-04-23T12:28:22.4579346Z\",\n   \"eventType\": \"Microsoft.Storage.BlobCreated\",\n   \"cloudEventsVersion\": \"0.1\",\n   \"data\": {\n       \"api\": \"PutBlockList\",\n       \"clientRequestId\": \"a23b4aba-2755-4107-8020-8ba6c54b203d\",\n       \"requestId\": \"96fb5f0b-001e-0108-6dfe-da6e28000000\",\n       \"eTag\": \"0x8D5A915B425AFFD\",\n       \"contentType\": \"image/jpeg\",\n       \"contentLength\": 2779325,\n       \"blobType\": \"BlockBlob\",\n       \"url\": \"https://cvtest34.blob.core.windows.net/myfiles/IMG_20180224_0004.jpg\",\n       \"sequencer\": \"000000000000000000000000000000BA00000000003db46c\",\n       \"storageDiagnostics\": {\n           \"batchId\": \"ba4fb664-f289-4742-8067-6c859411b066\"\n       }\n   },\n   \"source\": \"/subscriptions/326100e2-f69d-4268-8503-075374f62b6e/resourceGroups/cvtest34/providers/Microsoft.Storage/storageAccounts/cvtest34#/blobServices/default/containers/myfiles/blobs/IMG_20180224_0004.jpg\"\n}"
+				},
+				"url": {
+					"raw": "https://cloudeventsdemo.dispatchframework.io/twitter",
+					"protocol": "https",
+					"host": [
+						"cloudeventsdemo",
+						"dispatchframework",
+						"io"
+					],
+					"path": [
+						"twitter"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
